@@ -3,7 +3,7 @@
 
 int main()
 {
-	CDate date(1987, 1, 31);
+	CDate date(1987, 2, 31);
 	date.Display();
 	return 0;
 }

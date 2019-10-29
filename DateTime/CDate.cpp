@@ -5,32 +5,18 @@ using namespace std;
 
 CDate::CDate(int year, int month, int day)
 {
-	if (year < 1970)
-	{
-		year = 1970;
-	}
+	static int length[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-	if (month < 1 || month > 12)
-	{
-		month = 1;
-	}
-
-	int mod = month > 6 ? 1 : 0;
-	int expected_day_max = (month % 2) == mod ? 30 : 31;
-	expected_day_max = month == 2 ? 28 : expected_day_max;
-
-	if (day < 1 || day > expected_day_max)
-	{
-		day = 1;
-	}
-
-	m_iYear = year;
-	m_iMonth = month;
-	m_iDay = day;
+	m_iMonth = max(1, month);
+	m_iMonth = min(m_iMonth, 12);
+	m_iDay = max(1, day);
+	m_iDay = min(m_iDay, length[m_iMonth]);
+	m_iYear = max(1, year);
+	m_iYear = min(1970, m_iYear);
 }
 
 void CDate::Display()
 {
-	static char* months[] = {"?","January", "February", "March","April",  "May", "June", "July", "August", "September", "October", "November", "December"};
+	static char* months[] = { "?","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 	cout << m_iYear << '.' << months[m_iMonth] << '.' << m_iDay << '.' << endl;
 }
